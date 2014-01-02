@@ -39,12 +39,9 @@ class Configurable(DotExpandedDict):
     Example::
 
         class Diary(Configurable):
-            defines = {
+            needs = {
                 'db': pymongo.database.Database,
                 'tz': 'Europe/Prague',
-            }
-            env_aware = {
-                'TZ': 'tz',    # enables `TZ="Asia/Yekaterinburg" foo.py`
             }
 
             def log(self, note):
@@ -70,7 +67,7 @@ class Configurable(DotExpandedDict):
     interface for cleaner code), so this works fine::
 
         class Foo(Configurable):
-            defines = {
+            needs = {
                 'bar': 123,
             }
 
@@ -86,7 +83,7 @@ class Configurable(DotExpandedDict):
         type.  Consider this code::
 
             class Foo(Configurable):
-                defines = {
+                needs = {
                     'debug': os.environ.get('DEBUG', False)
                 }
 
@@ -100,19 +97,19 @@ class Configurable(DotExpandedDict):
         Always make ensure that the default value is of a certain type, e.g.::
 
             class Foo(Configurable):
-                defines = {
+                needs = {
                     'debug': bool(os.environ.get('DEBUG', False))
                 }
 
         Also note that ``DEBUG=0`` is also a string and ``bool('0') == True``.
 
     """
-    defines = {}
+    needs = {}
 
     def __init__(self, conf=None):
         conf = conf or {}
-        merged = merge_defaults(self.defines, conf)
-        validate(self.defines, merged)
+        merged = merge_defaults(self.needs, conf)
+        validate(self.needs, merged)
         self.update(merged)
         self.init()
 
