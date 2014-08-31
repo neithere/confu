@@ -24,12 +24,16 @@ Confu
 ~~~~~
 """
 # TODO ENV vars to conf
-from monk.validation import validate
-from monk.manipulation import merge_defaults
+try:
+    from monk import validate, merge_defaults
+except ImportError:
+    # monk < 0.13
+    from monk.validation import validate
+    from monk.manipulation import merge_defaults
 from monk.modeling import DotExpandedDict
 
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 
 class Configurable(DotExpandedDict):
