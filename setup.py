@@ -29,7 +29,7 @@ setup(
     long_description = 'TODO',
 
     # technical info
-    version = '0.0.2',
+    version = '0.0.3',
     packages = ['confu'],
     provides = ['confu'],
     install_requires = ['monk>=0.11'],
