@@ -38,7 +38,7 @@ class ConfigurableBlueprint(Configurable):
     and provides a dedicated `serve` method (which is also a CLI command)
     to debug this blueprint on its own.
     """
-    defines = {
+    needs = {
         'debug': bool(os.environ.get('DEBUG', False)),
     }
 

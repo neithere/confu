@@ -25,7 +25,7 @@ from diary import Diary
 
 
 class WebDiary(ConfigurableBlueprint):
-    defines = dict(ConfigurableBlueprint.defines, **{
+    needs = dict(ConfigurableBlueprint.needs, **{
         'diary': Diary,
     })
 

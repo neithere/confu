@@ -22,7 +22,7 @@ from confu import Configurable
 
 
 class MongoDB(Configurable):
-    defines = {
+    needs = {
         'host': 'localhost',
         'port': 27017,
         'db_name': str,
@@ -30,8 +30,7 @@ class MongoDB(Configurable):
     conn = None
 
     def connect(self):
-        self.conn = pymongo.Connection(host=self.host,
-                                       port=self.port)
+        self.conn = pymongo.MongoClient(host=self.host, port=self.port)
 
     @property
     def db(self):

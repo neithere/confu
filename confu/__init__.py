@@ -114,13 +114,15 @@ class Configurable(DotExpandedDict):
         Also note that ``DEBUG=0`` is also a string and ``bool('0') == True``.
 
     """
-    needs = {}
+    needs = NotImplemented
 
     def __init__(self, conf=None, extra=None):
         if not conf:
             conf = {}
         if extra:
             conf.update(extra)
+        if self.needs is NotImplemented:
+            raise NotImplementedError('{}.needs'.format(self.__class__.__name__))
         merged = merge_defaults(self.needs, conf)
         validate(self.needs, merged)
         self.update(merged)

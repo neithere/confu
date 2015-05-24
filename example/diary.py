@@ -22,7 +22,7 @@ from confu import Configurable
 
 
 class Diary(Configurable):
-    defines = {
+    needs = {
         'db': pymongo.database.Database,
         'collection_name': 'my_diary',
     }
