@@ -40,6 +40,12 @@ class Configurable(DotExpandedDict):
     """
     A functional unit that can be configured in a specific way.
 
+    :param conf: a dictionary with basic configuration.
+    :param extra: a dictionary with additional configuration.
+        If specified, overrides individual keys from `conf`.
+        Can be used together with `conf` to provide app-wide defaults
+        for each Configurable.
+
     Example::
 
         class Diary(Configurable):
@@ -110,8 +116,11 @@ class Configurable(DotExpandedDict):
     """
     needs = {}
 
-    def __init__(self, conf=None):
-        conf = conf or {}
+    def __init__(self, conf=None, extra=None):
+        if not conf:
+            conf = {}
+        if extra:
+            conf.update(extra)
         merged = merge_defaults(self.needs, conf)
         validate(self.needs, merged)
         self.update(merged)
