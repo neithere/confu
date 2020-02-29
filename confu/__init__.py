@@ -127,7 +127,7 @@ class Configurable(DotExpandedDict):
         try:
             validate(self.needs, merged)
         except ValidationError as e:
-            raise ValidationError('{}: {}'.format(self.__class__.__name__, e)
+            raise ValidationError('{}: {}'.format(self.__class__.__name__, e))
         self.update(merged)
         self.init()
 
