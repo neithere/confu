@@ -25,7 +25,7 @@ Confu
 """
 # TODO ENV vars to conf
 try:
-    from monk import validate, merge_defaults
+    from monk import ValidationError, validate, merge_defaults
 except ImportError:
     # monk < 0.13
     from monk.validation import validate
@@ -33,7 +33,7 @@ except ImportError:
 from monk.modeling import DotExpandedDict
 
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 
 class Configurable(DotExpandedDict):
@@ -124,7 +124,10 @@ class Configurable(DotExpandedDict):
         if self.needs is NotImplemented:
             raise NotImplementedError('{}.needs'.format(self.__class__.__name__))
         merged = merge_defaults(self.needs, conf)
-        validate(self.needs, merged)
+        try:
+            validate(self.needs, merged)
+        except ValidationError as e:
+            raise ValidationError('{}: {}'.format(self.__class__.__name__, e)
         self.update(merged)
         self.init()
 
