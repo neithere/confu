@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 #    Confu is a configuration management library.
-#    Copyright © 2014  Andrey Mikhaylenko
+#    Copyright © 2014—2020 Andrey Mikhaylenko
 #
 #    This file is part of Confu.
 #
@@ -29,7 +29,7 @@ setup(
     long_description = 'TODO',
 
     # technical info
-    version = '0.0.3',
+    version = '0.0.4',
     packages = ['confu'],
     provides = ['confu'],
     install_requires = ['monk>=0.11'],
